@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=DM+Serif+Display:ital@0;1&family=Outfit:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="calculator">
+        <form>
+          <div class="display">
+            <input type="text" name="display" id="display"/>
+          </div>
+          <div>
+            <input
+              type="button"
+              value="AC"
+              onclick= "clearDisplay()"
+              class="operator"
+            />
+            <input
+              type="button"
+              value="DE"
+              onclick="deleteLast()"
+              class="operator"
+            />
+            <input
+              type="button"
+              value="."
+              onclick="appendOperator('.')"
+              class="operator"
+            />
+            <input
+              type="button"
+              value="/"
+              onclick="appendOperator('/')"
+              class="operator"
+            />
+          </div>
+          <div>
+            <input type="button" value="7" onclick="appendValue('7')" />
+            <input type="button" value="8" onclick="appendValue('8')" />
+            <input type="button" value="9" onclick="appendValue('9')" />
+            <input
+              type="button"
+              value="*"
+              onclick="appendOperator('*')"
+              class="operator"
+            />
+          </div>
+          <div>
+            <input type="button" value="4" onclick="appendValue('4')"/>
+            <input type="button" value="5" onclick="appendValue('5')"/>
+            <input type="button" value="6" onclick="appendValue('6')"/>
+            <input
+              type="button"
+              value="-"
+              onclick="appendOperator('-')"
+              class="operator"
+            />
+          </div>
+          <div>
+            <input type="button" value="1" onclick="appendValue('1')"/>
+            <input type="button" value="2" onclick="appendValue('2')"/>
+            <input type="button" value="3" onclick="appendValue('3')"/>
+            <input
+              type="button"
+              value="+"
+              onclick="appendOperator('+')"
+              class="operator"
+            />
+          </div>
+          <div>
+            <input type="button" value="00" onclick="appendValue('00')" />
+            <input type="button" value="0" onclick="appendValue('0')" />
+            <input
+              type="button"
+              value="="
+              onclick="calculate()"
+              class="equal operator"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    function appendValue(val) {
+      const display = document.getElementById("display");
+      display.value += val;
+    }
+
+    function appendOperator(op) {
+      const display = document.getElementById("display");
+      let lastChar = display.value.slice(-1);
+      const operator = ["+", "-", "*", "/", "."];
+
+      if (display.value === "" && op !== "-") return;
+      if (operator.includes(lastChar)) {
+        display.value = display.value.slice(0, -1) + op;
+      } else {
+        display.value += op;
+      }
+    }
+
+    function calculate() {
+      const display = document.getElementById("display");
+      try {
+        display.value = eval(display.value);
+      } catch (e) {
+        display.value = "Error";
+      }
+    }
+
+    function clearDisplay() {
+      document.getElementById("display").value = "";
+    }
+
+    function deleteLast() {
+      const display = document.getElementById("display");
+      display.value = display.value.slice(0, -1);
+    }
+  </script>
+</html>
